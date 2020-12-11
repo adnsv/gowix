@@ -134,6 +134,7 @@ type Component struct {
 	Files           []*File           `xml:"File"`
 	ServiceInstalls []*ServiceInstall `xml:"ServiceInstall"`
 	ServiceControls []*ServiceControl `xml:"ServiceControl"`
+	Environments    []*Environment    `xml:"Environment"`
 }
 
 // File implements Wix.File element
@@ -211,11 +212,23 @@ type ServiceInstall struct {
 // https://wixtoolset.org/documentation/manual/v3/xsd/wix/servicecontrol.html
 type ServiceControl struct {
 	ID     string               `xml:"Id,attr"`
-	Name   string               `xml:"Name,attr"` // Name of the service
+	Name   string               `xml:",attr"` // Name of the service
 	Remove InstallUninstallType `xml:",attr,omitempty"`
 	Start  InstallUninstallType `xml:",attr,omitempty"`
 	Stop   InstallUninstallType `xml:",attr,omitempty"`
 	Wait   YesNoType            `xml:",attr,omitempty"` // Specifies whether or not to wait for the service to complete before continuing. The default is 'yes'.
+}
+
+// Environment implements Wix.Environment element
+// https://wixtoolset.org/documentation/manual/v3/xsd/wix/environment.html
+type Environment struct {
+	ID        string    `xml:"Id,attr"`
+	Name      string    `xml:"Name,attr"`       // Name of the service
+	Action    string    `xml:",attr,omitempty"` // create/set/remove
+	Part      string    `xml:",attr,omitempty"` // all,first,last
+	Permanent YesNoType `xml:",attr,omitempty"`
+	System    YesNoType `xml:",attr,omitempty"`
+	Value     string    `xml:",attr,omitempty"`
 }
 
 // AddProperty adds a new Property to a Product
