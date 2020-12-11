@@ -54,7 +54,6 @@ product := &wix.Product{
         Manufacturer:     "Company Name",
         InstallerVersion: 200,
         InstallScope:     "perMachine",
-        Platform:         "x64",
         Languages:        1033,
         Compressed:       wix.Yes,
         SummaryCodepage:  1252,
